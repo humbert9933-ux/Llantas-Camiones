@@ -35,7 +35,7 @@
         .form-input:focus { border-color: var(--brand-red); outline: none; box-shadow: 0 0 10px rgba(220, 38, 38, 0.2); }
         select { appearance: none; background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='red' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); background-repeat: no-repeat; background-position: right 1rem center; background-size: 1em; }
         
-        /* LOADER CON LATIDO */
+        /* LOADER CON LATIDO Y RUEDA */
         #loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--brand-black); z-index: 99999; display: flex; flex-direction: column; justify-content: center; align-items: center; background-image: url('https://www.transparenttextures.com/patterns/asphalt.png'); animation: forceHide 3s forwards; }
         @keyframes forceHide { 0% { opacity: 1; visibility: visible; } 80% { opacity: 1; visibility: visible; } 100% { opacity: 0; visibility: hidden; pointer-events: none; } }
         .loader-container { position: relative; width: 140px; height: 140px; display: flex; justify-content: center; align-items: center; margin-bottom: 2rem; }
@@ -44,6 +44,7 @@
         .logo-pulse { position: absolute; width: 85px; height: 85px; border-radius: 50%; object-fit: contain; background: white; border: 3px solid #18181b; z-index: 10; animation: heartbeat 1.2s infinite ease-in-out; }
         @keyframes heartbeat { 0% { transform: scale(0.9); box-shadow: 0 0 10px rgba(220, 38, 38, 0.4); } 50% { transform: scale(1.1); box-shadow: 0 0 35px rgba(220, 38, 38, 1); } 100% { transform: scale(0.9); box-shadow: 0 0 10px rgba(220, 38, 38, 0.4); } }
 
+        /* MODALES Y CHAT */
         #cart-modal { transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
         .cart-open { transform: translateX(0%); }
         .cart-closed { transform: translateX(100%); }
@@ -65,8 +66,47 @@
             <div class="tire-spinner"></div>
             <img src="logo.jpg" alt="Global Tyre" class="logo-pulse" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3063/3063822.png'">
         </div>
-        <p class="text-zinc-500 text-[10px] uppercase font-bold tracking-[0.4em] animate-pulse">Sincronizando Central B2B...</p>
+        <p class="text-zinc-500 text-[10px] uppercase font-black tracking-[0.4em] animate-pulse">Sincronizando Central B2B...</p>
     </div>
+
+    <nav class="fixed w-full z-40 glass border-b border-white/5 top-0">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+            <img src="logo.jpg" alt="Global Tyre" class="h-10 w-auto object-contain" onerror="this.outerHTML='<span class=\'text-xl font-black italic uppercase tracking-tighter\'>GLOBAL<span class=\'text-red-600\'>TYRE</span></span>'">
+            <a href="https://wa.me/59176395001" class="bg-zinc-900 border border-white/10 text-white px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-red-600 transition-all">Atención 24/7</a>
+        </div>
+    </nav>
+
+    <section class="relative pt-32 pb-16 flex flex-col items-center justify-center hero-bg">
+        <div class="text-center z-10 px-6 max-w-4xl" data-aos="fade-up">
+            <span class="bg-red-600/20 text-red-500 px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest border border-red-600/30 mb-6 inline-block">División Alto Tonelaje</span>
+            <h1 class="text-5xl md:text-8xl font-black uppercase mb-4 leading-none tracking-tight text-white">POTENCIA <br><span class="text-red-600 italic tracking-tighter">EN RUTA</span></h1>
+            <p class="text-zinc-400 font-bold text-[10px] uppercase tracking-[0.6em] mb-12">Logística Industrial & Distribución Nacional</p>
+        </div>
+    </section>
+
+    <div class="max-w-5xl mx-auto px-6 relative z-30 -mt-10 mb-20" id="catalogo">
+        <div class="glass p-6 md:p-8 rounded-[2.5rem] shadow-2xl border-red-600/30">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <input type="text" id="filtroMedida" onkeyup="ejecutarFiltros()" placeholder="Buscar Medida o Modelo..." class="form-input p-4 w-full text-xs">
+                <select id="filtroPosicion" onchange="ejecutarFiltros()" class="form-input p-4 w-full text-xs cursor-pointer">
+                    <option value="TODAS">Eje (Todos)</option>
+                    <option value="DIRECCIÓN">Eje Dirección</option>
+                    <option value="TRACCIÓN">Eje Tracción</option>
+                    <option value="REMOLQUE">Remolque</option>
+                </select>
+                <select id="filtroAplicacion" onchange="ejecutarFiltros()" class="form-input p-4 w-full text-xs cursor-pointer">
+                    <option value="TODAS">Aplicación (Todas)</option>
+                    <option value="REGIONAL">Regional</option>
+                    <option value="LARGA DISTANCIA">Largo Recorrido</option>
+                    <option value="MIXTO">Mixto / Off-Road</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <main class="max-w-6xl mx-auto px-6 pb-32">
+        <div id="grid-camion" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+    </main>
 
     <button onclick="toggleChat()" class="fixed bottom-24 right-6 bg-zinc-900 border border-red-600/50 text-white p-4 rounded-full shadow-2xl z-40 hover:border-red-500 transition-all active:scale-95 group">
         <svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
@@ -75,30 +115,20 @@
     <div id="ai-chat-window" class="fixed bottom-40 right-6 w-80 sm:w-96 glass border border-red-600/30 rounded-2xl shadow-2xl z-50 flex flex-col overflow-hidden transition-all duration-300 opacity-0 pointer-events-none translate-y-4">
         <div class="bg-gradient-to-r from-red-700 to-red-900 p-4 flex justify-between items-center">
             <div class="flex items-center gap-3">
-                <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-inner">
-                    <span class="text-red-700 font-black text-xs italic">IA</span>
-                </div>
+                <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center"><span class="text-red-700 font-black text-xs italic">IA</span></div>
                 <div>
-                    <h3 class="text-white font-black uppercase text-[11px] tracking-widest leading-none">Asesor Técnico Global</h3>
-                    <p class="text-red-200 text-[9px] uppercase font-bold tracking-wider mt-1 flex items-center gap-1">
-                        <span class="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></span> En línea
-                    </p>
+                    <h3 class="text-white font-black uppercase text-[11px] tracking-widest">Asesor Global</h3>
+                    <p class="text-red-200 text-[9px] uppercase font-bold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></span> En Línea</p>
                 </div>
             </div>
-            <button onclick="toggleChat()" class="text-white hover:text-zinc-300">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-            </button>
+            <button onclick="toggleChat()" class="text-white"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
         </div>
         <div id="chat-messages" class="h-80 bg-zinc-950/90 p-4 overflow-y-auto flex flex-col gap-3">
-            <div class="bg-zinc-800 text-white text-xs p-3 rounded-xl rounded-tl-none border border-zinc-700 max-w-[85%]">
-                ¡Hola! Soy tu asistente experto en Global Tyre. ¿Buscas llantas para una ruta específica o algún eje en particular?
-            </div>
+            <div class="bg-zinc-800 text-white text-xs p-3 rounded-xl rounded-tl-none border border-zinc-700 max-w-[85%]">¡Hola! Soy tu asistente IA experto en neumáticos de alto tonelaje. ¿Qué medida o ruta necesitas hoy?</div>
         </div>
         <div class="bg-zinc-900 p-3 border-t border-white/10 flex gap-2">
             <input type="text" id="chatInput" placeholder="Pregunta algo..." class="bg-zinc-950 border border-zinc-700 text-white text-xs rounded-xl px-4 py-2 w-full outline-none focus:border-red-600" onkeypress="if(event.key === 'Enter') enviarMensajeIA()">
-            <button onclick="enviarMensajeIA()" class="bg-red-600 text-white p-2 rounded-xl">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-            </button>
+            <button onclick="enviarMensajeIA()" class="bg-red-600 text-white p-2 rounded-xl"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></button>
         </div>
     </div>
 
@@ -110,7 +140,7 @@
     <div id="cart-overlay" onclick="toggleCart()" class="fixed inset-0 bg-black/80 z-50 overlay-closed backdrop-blur-sm"></div>
     <div id="cart-modal" class="fixed top-0 right-0 w-full max-w-md h-full glass border-l border-white/10 z-50 cart-closed flex flex-col shadow-2xl">
         <div class="flex justify-between items-center p-6 border-b border-white/5 bg-zinc-900/80">
-            <h2 class="text-xl font-black uppercase tracking-widest italic">Mi Flota <span class="text-red-600">(Carrito)</span></h2>
+            <h2 class="text-xl font-black uppercase tracking-widest italic text-white">Mi Flota <span class="text-red-600">(Carrito)</span></h2>
             <button onclick="toggleCart()" class="text-zinc-500"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
         </div>
         <div id="cart-items" class="flex-1 overflow-y-auto p-6 space-y-4"></div>
@@ -119,56 +149,58 @@
                 <input type="text" id="nombreCliente" placeholder="Empresa / Contacto *" class="form-input p-3 w-full text-xs">
                 <div class="grid grid-cols-2 gap-2">
                     <select id="departamento" onchange="updateCiudades()" class="form-input p-3 w-full text-xs">
-                        <option value="Santa Cruz">Santa Cruz</option><option value="La Paz">La Paz</option>
+                        <option value="Santa Cruz">Santa Cruz</option><option value="La Paz">La Paz</option><option value="Cochabamba">Cochabamba</option>
+                        <option value="Beni">Beni</option><option value="Pando">Pando</option><option value="Oruro">Oruro</option>
+                        <option value="Potosí">Potosí</option><option value="Tarija">Tarija</option><option value="Chuquisaca">Chuquisaca</option>
                     </select>
                     <select id="ciudad" class="form-input p-3 w-full text-xs"></select>
                 </div>
+                <div class="flex items-center gap-3 p-3 bg-zinc-900 rounded-xl border border-white/5">
+                    <input type="checkbox" id="quiereFactura" class="w-4 h-4 accent-red-600">
+                    <label for="quiereFactura" class="text-[10px] font-black text-zinc-300 uppercase">Requiere Factura Fiscal</label>
+                </div>
             </div>
-            <button onclick="enviarPedidoWA()" class="w-full bg-red-600 py-4 rounded-xl font-black uppercase text-[11px]">Enviar a WhatsApp</button>
+            <button onclick="enviarPedidoWA()" class="w-full bg-red-600 hover:bg-white hover:text-black py-4 rounded-xl font-black uppercase text-[11px] shadow-xl flex justify-center items-center gap-2 transition-all">Enviar Pedido a WhatsApp</button>
         </div>
     </div>
 
-    <nav class="fixed w-full z-40 glass border-b border-white/5 top-0">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
-            <img src="logo.jpg" alt="Logo" class="h-10 w-auto object-contain" onerror="this.outerHTML='<span class=\'text-2xl font-black italic uppercase\'>GLOBAL<span class=\'text-red-600\'>TYRE</span></span>'">
-            <a href="https://wa.me/59176395001" class="bg-zinc-900 border border-white/10 text-white px-6 py-2.5 rounded-full text-[10px] font-black uppercase">Atención 24/7</a>
+    <footer class="glass border-t border-red-600/20 py-16 text-center">
+        <div class="max-w-4xl mx-auto px-6 flex flex-col items-center">
+            <img src="logo.jpg" alt="Logo" class="h-16 w-auto object-contain mb-4" onerror="this.outerHTML='<p class=\'text-red-600 text-3xl font-black uppercase mb-2\'>Global Tyre Bolivia</p>'">
+            <p class="text-zinc-500 text-[10px] font-black uppercase tracking-[0.5em] mb-8">Estrategia Industrial & Logística</p>
+            <div class="flex justify-center gap-8 text-[11px] font-black text-zinc-400">
+                <span>Santa Cruz</span><span>•</span><span>76395001</span><span>•</span><span>Grupo Limex SRL</span>
+            </div>
         </div>
-    </nav>
-
-    <section class="relative pt-32 pb-16 flex flex-col items-center hero-bg">
-        <div class="text-center z-10 px-6 max-w-4xl" data-aos="fade-up">
-            <h1 class="text-5xl md:text-8xl font-black uppercase mb-4 leading-none">RENDIMIENTO EN <br><span class="text-red-600 italic">CADA RUTA</span></h1>
-            <p class="text-zinc-400 font-bold text-[10px] uppercase tracking-[0.6em] mb-12">Logística y Distribución Nacional | Bolivia</p>
-        </div>
-    </section>
-
-    <div class="max-w-5xl mx-auto px-6 relative z-30 -mt-10 mb-20">
-        <div class="glass p-6 rounded-[2.5rem] shadow-2xl border-red-600/30 grid grid-cols-1 md:grid-cols-3 gap-4">
-            <input type="text" id="filtroMedida" onkeyup="ejecutarFiltros()" placeholder="Buscar Medida..." class="form-input p-4 w-full text-xs">
-            <select id="filtroPosicion" onchange="ejecutarFiltros()" class="form-input p-4 w-full text-xs"><option value="TODAS">Eje (Todos)</option><option value="DIRECCIÓN">Dirección</option><option value="TRACCIÓN">Tracción</option></select>
-            <select id="filtroAplicacion" onchange="ejecutarFiltros()" class="form-input p-4 w-full text-xs"><option value="TODAS">Aplicación (Todas)</option><option value="MIXTO">Mixto</option><option value="REGIONAL">Regional</option></select>
-        </div>
-    </div>
-
-    <main class="max-w-6xl mx-auto px-6 pb-32">
-        <div id="grid-camion" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
-    </main>
+    </footer>
 
     <script>
-        const ciudadesBolivia = { "Santa Cruz": ["Santa Cruz de la Sierra", "Montero"], "La Paz": ["La Paz", "El Alto"] };
+        const ciudadesBolivia = {
+            "Santa Cruz": ["Santa Cruz de la Sierra", "Montero", "Warnes", "La Guardia", "San Ignacio", "Camiri"],
+            "La Paz": ["La Paz", "El Alto", "Viacha", "Caranavi"],
+            "Cochabamba": ["Cochabamba", "Sacaba", "Quillacollo", "Villa Tunari"],
+            "Beni": ["Trinidad", "Riberalta", "Guayaramerín", "San Borja"],
+            "Pando": ["Cobija"], "Oruro": ["Oruro", "Challapata"],
+            "Potosí": ["Potosí", "Uyuni", "Villazón"], "Tarija": ["Tarija", "Yacuiba"], "Chuquisaca": ["Sucre"]
+        };
+
         let baseDatos = []; let carrito = [];
 
         async function init() {
             try {
                 const res = await fetch('llantas_maxell_camion.json');
+                if (!res.ok) throw new Error();
                 baseDatos = await res.json();
                 render(baseDatos); updateCiudades(); AOS.init({ duration: 800, once: true });
-            } catch (e) { console.error(e); }
+            } catch (e) {
+                document.getElementById('grid-camion').innerHTML = `<div class='col-span-full bg-red-900/10 p-8 text-center rounded-2xl'><p class='text-red-500 font-bold uppercase text-xs'>Error de Base de Datos. Verifica tu archivo JSON.</p></div>`;
+            }
         }
 
         function toggleCart() {
-            document.getElementById('cart-modal').classList.toggle('cart-closed'); document.getElementById('cart-modal').classList.toggle('cart-open');
-            document.getElementById('cart-overlay').classList.toggle('overlay-closed'); document.getElementById('cart-overlay').classList.toggle('overlay-open');
+            const modal = document.getElementById('cart-modal'); const overlay = document.getElementById('cart-overlay');
+            modal.classList.toggle('cart-closed'); modal.classList.toggle('cart-open');
+            overlay.classList.toggle('overlay-closed'); overlay.classList.toggle('overlay-open');
         }
 
         function toggleChat() {
@@ -176,37 +208,52 @@
             chat.classList.toggle('opacity-0'); chat.classList.toggle('pointer-events-none'); chat.classList.toggle('translate-y-4');
         }
 
+        function updateCiudades() {
+            const dpto = document.getElementById('departamento').value;
+            document.getElementById('ciudad').innerHTML = ciudadesBolivia[dpto].map(c => `<option value="${c}">${c}</option>`).join('');
+        }
+
+        // ==========================================
+        // CONEXIÓN CON TU SERVIDOR DE REPLIT 
+        // ==========================================
         async function enviarMensajeIA() {
-            const input = document.getElementById('chatInput'); const msg = input.value.trim(); if(!msg) return;
+            const input = document.getElementById('chatInput'); 
+            const msg = input.value.trim(); 
+            if(!msg) return;
+            
             const chatBox = document.getElementById('chat-messages');
             chatBox.innerHTML += `<div class="bg-red-600 text-white text-xs p-3 rounded-xl rounded-tr-none self-end max-w-[85%]">${msg}</div>`;
-            input.value = ''; chatBox.scrollTop = chatBox.scrollHeight;
+            input.value = ''; 
+            chatBox.scrollTop = chatBox.scrollHeight;
             
             const typingId = "typing-" + Date.now();
             chatBox.innerHTML += `<div id="${typingId}" class="bg-zinc-800 text-zinc-400 text-[10px] font-bold p-3 rounded-xl rounded-tl-none border border-zinc-700 max-w-[85%]">Procesando...</div>`;
             chatBox.scrollTop = chatBox.scrollHeight;
 
             try {
-                // TU URL REAL DE REPLIT
+                // TU ENLACE EXACTO AL BACKEND
                 const urlBackend = 'https://node-server--humbert9933.replit.app/api/chat';
+                
                 const response = await fetch(urlBackend, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ message: msg })
                 });
+                
                 const data = await response.json();
                 document.getElementById(typingId).remove();
-                const texto = (data.response || data.respuesta).replace(/\n/g, '<br>');
-                chatBox.innerHTML += `<div class="bg-zinc-800 text-white text-xs p-3 rounded-xl max-w-[85%]">${texto}</div>`;
-            } catch (e) { document.getElementById(typingId).innerHTML = "⚠️ Error de conexión."; }
+                
+                // Extrae la respuesta (soporta response o respuesta)
+                const texto = (data.response || data.respuesta || "Lo siento, hubo un error de comunicación.").replace(/\n/g, '<br>');
+                chatBox.innerHTML += `<div class="bg-zinc-800 text-white text-xs p-3 rounded-xl rounded-tl-none border border-zinc-700 max-w-[85%] leading-relaxed">${texto}</div>`;
+            } catch (error) {
+                document.getElementById(typingId).innerHTML = "⚠️ Error de conexión con el servidor IA. Verifica que Replit esté corriendo.";
+                console.error(error);
+            }
             chatBox.scrollTop = chatBox.scrollHeight;
         }
 
-        function updateCiudades() {
-            const dpto = document.getElementById('departamento').value;
-            document.getElementById('ciudad').innerHTML = ciudadesBolivia[dpto].map(c => `<option value="${c}">${c}</option>`).join('');
-        }
-
+        // LÓGICA CARRITO
         function modificarCantidad(i, cambio) {
             const el = document.getElementById(`qty-val-${i}`);
             let val = parseInt(el.innerText) + cambio; if(val < 1) val = 1; el.innerText = val;
@@ -217,33 +264,50 @@
             const exist = carrito.find(x => x.medida === med && x.modelo === mod);
             if(exist) exist.cantidad += qty; else carrito.push({ medida: med, modelo: mod, precio: pre, cantidad: qty });
             actualizarUI();
+            const b = document.getElementById(`btn-add-${i}`); b.innerText = "¡AÑADIDO!"; setTimeout(() => b.innerText = "Añadir al Carrito", 1000);
+        }
+
+        function modificarCantidadCarrito(i, cambio) {
+            carrito[i].cantidad += cambio; if(carrito[i].cantidad < 1) carrito[i].cantidad = 1; actualizarUI();
         }
 
         function eliminarDelCarrito(i) { carrito.splice(i, 1); actualizarUI(); }
 
         function actualizarUI() {
-            document.getElementById('cart-badge').innerText = carrito.reduce((a, b) => a + b.cantidad, 0);
+            const totItems = carrito.reduce((a, b) => a + b.cantidad, 0);
+            const totPre = carrito.reduce((a, b) => a + (b.precio * b.cantidad), 0);
+            document.getElementById('cart-badge').innerText = totItems;
             const container = document.getElementById('cart-items');
             if(carrito.length === 0) { container.innerHTML = '<p class="text-center text-zinc-500 text-xs font-bold uppercase mt-10">Vacío</p>'; return; }
             container.innerHTML = carrito.map((x, i) => `
-                <div class="bg-zinc-900/50 border border-white/5 rounded-xl p-4 flex justify-between items-center mb-3">
+                <div class="bg-zinc-900/50 border border-white/5 rounded-xl p-4 flex justify-between items-center shadow-lg mb-3">
                     <div class="flex-1">
-                        <p class="text-white font-black italic uppercase text-lg">${x.medida}</p>
-                        <p class="text-red-600 text-[10px] font-black uppercase mb-1">${x.modelo}</p>
-                        <p class="text-white font-black text-sm">${x.cantidad} x ${x.precio} BS</p>
+                        <p class="text-white font-black italic uppercase text-lg leading-none">${x.medida}</p>
+                        <p class="text-red-600 text-[10px] font-black uppercase mb-3">${x.modelo}</p>
+                        <div class="flex items-center gap-3">
+                            <button onclick="modificarCantidadCarrito(${i}, -1)" class="w-7 h-7 rounded bg-zinc-800 text-white font-black text-sm">-</button>
+                            <span class="text-white font-black text-sm w-4 text-center">${x.cantidad}</span>
+                            <button onclick="modificarCantidadCarrito(${i}, 1)" class="w-7 h-7 rounded bg-zinc-800 text-white font-black text-sm">+</button>
+                        </div>
                     </div>
-                    <button onclick="eliminarDelCarrito(${i})" class="text-red-500"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>
-                </div>`).join('');
+                    <div class="flex flex-col items-end gap-2 ml-4">
+                        <span class="text-white font-black text-lg">${x.precio * x.cantidad} BS</span>
+                        <button onclick="eliminarDelCarrito(${i})" class="text-red-500 hover:text-white transition-colors"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>
+                    </div>
+                </div>
+            `).join('') + `<div class="mt-4 p-4 border-t border-white/10 flex justify-between items-center bg-red-600/10 rounded-xl"><span class="text-white font-black text-[11px] uppercase">Total:</span><span class="text-red-500 font-black text-2xl">${totPre} BS</span></div>`;
         }
 
         function render(items) {
-            document.getElementById('grid-camion').innerHTML = items.map((l, i) => `
+            const grid = document.getElementById('grid-camion');
+            if(items.length === 0) { grid.innerHTML = "<p class='col-span-full text-center py-10 text-zinc-500 font-bold uppercase text-[10px]'>Sin resultados</p>"; return; }
+            grid.innerHTML = items.map((l, i) => `
                 <div class="glass p-8 rounded-[2.5rem] product-card flex flex-col h-full border border-white/5 relative" data-aos="fade-up">
                     <div class="flex justify-between items-start mb-4">
-                        <span class="bg-red-600 text-white text-[8px] px-2.5 py-1 rounded-full font-black uppercase tracking-widest">${l.posicion || 'LLANTA'}</span>
+                        <span class="bg-red-600 text-white text-[8px] px-2.5 py-1 rounded-full font-black uppercase tracking-widest">${l.posicion || l.categoria || 'LLANTA'}</span>
                         <span class="text-2xl font-black text-white tracking-tighter">${l.precio || 0} BS</span>
                     </div>
-                    <h3 class="text-red-600 text-[10px] font-black uppercase tracking-[0.2em] mb-1">${l.modelo}</h3>
+                    <h3 class="text-red-600 text-[10px] font-black uppercase tracking-[0.2em] mb-1">Modelo ${l.modelo}</h3>
                     <p class="text-4xl font-black text-white mb-4 uppercase tracking-tighter italic leading-none">${l.medida}</p>
                     <div class="flex flex-wrap gap-2 mb-4">
                         <span class="bg-zinc-800 border border-zinc-700 text-zinc-300 text-[8px] px-2 py-1 rounded font-bold uppercase">${l.aplicacion || 'MIXTO'}</span>
@@ -251,14 +315,14 @@
                     </div>
                     <p class="text-zinc-500 text-[10px] mb-6 font-medium flex-grow leading-relaxed uppercase border-t border-white/5 pt-4">${l.desc}</p>
                     <div class="flex items-center justify-between bg-zinc-900/50 p-3 rounded-2xl mb-4 border border-white/5">
-                        <span class="text-[9px] font-black text-zinc-500 uppercase tracking-widest">Cant:</span>
+                        <span class="text-[9px] font-black text-zinc-500 uppercase tracking-widest">Unidades:</span>
                         <div class="flex items-center gap-3">
                             <button onclick="modificarCantidad(${i}, -1)" class="w-8 h-8 rounded-lg bg-zinc-800 text-white font-black hover:bg-red-600 flex items-center justify-center">-</button>
                             <span id="qty-val-${i}" class="text-white font-black text-lg w-6 text-center">1</span>
                             <button onclick="modificarCantidad(${i}, 1)" class="w-8 h-8 rounded-lg bg-zinc-800 text-white font-black hover:bg-red-600 flex items-center justify-center">+</button>
                         </div>
                     </div>
-                    <button onclick="agregarAlCarrito(${i}, '${l.medida}', '${l.modelo}', ${l.precio || 0})" class="w-full border-2 border-red-600 text-white py-4 rounded-xl font-black uppercase text-[10px] hover:bg-red-600 transition-all">Añadir</button>
+                    <button id="btn-add-${i}" onclick="agregarAlCarrito(${i}, '${l.medida}', '${l.modelo}', ${l.precio || 0})" class="w-full border-2 border-red-600 text-white py-4 rounded-xl font-black uppercase text-[10px] hover:bg-red-600 transition-all">Añadir al Carrito</button>
                 </div>`).join('');
         }
 
@@ -267,15 +331,19 @@
             const app = document.getElementById('filtroAplicacion').value;
             const med = document.getElementById('filtroMedida').value.toLowerCase();
             let res = baseDatos.filter(p => p.medida.toLowerCase().includes(med) || (p.modelo && p.modelo.toLowerCase().includes(med)));
-            if(pos !== 'TODAS') res = res.filter(p => p.categoria === pos || p.posicion === pos);
+            if(pos !== 'TODAS') res = res.filter(p => (p.categoria && p.categoria.toUpperCase() === pos) || (p.posicion && p.posicion.toUpperCase() === pos));
             if(app !== 'TODAS') res = res.filter(p => p.aplicacion && p.aplicacion.toUpperCase().includes(app));
             render(res);
         }
 
         function enviarPedidoWA() {
+            if(carrito.length === 0) { alert("Añada llantas al carrito."); return; }
             const clie = document.getElementById('nombreCliente').value.trim(); if(!clie) { alert("Nombre requerido."); return; }
+            const dpto = document.getElementById('departamento').value; const ciud = document.getElementById('ciudad').value;
+            const fact = document.getElementById('quiereFactura').checked ? "SÍ" : "NO";
+            const f = new Date(); const fol = `GT-${f.getFullYear().toString().slice(-2)}${(f.getMonth()+1)}-${Math.floor(100+Math.random()*900)}`;
             let det = ""; let total = 0; carrito.forEach(x => { det += `• ${x.cantidad}x ${x.modelo} (${x.medida}) = ${x.precio*x.cantidad} BS\n`; total += (x.precio*x.cantidad); });
-            const msg = `*COTIZACIÓN GLOBAL TYRE*\n👤 *Cliente:* ${clie}\n🛒 *DETALLE:*\n${det}\n💰 *TOTAL: ${total} BS*`;
+            const msg = `*COTIZACIÓN B2B*\n🔖 *Folio:* ${fol}\n👤 *Cliente:* ${clie}\n\n🛒 *DETALLE:*\n${det}\n💰 *TOTAL: ${total} BS*\n📍 *Destino:* ${ciud}, ${dpto}\n📄 *Factura:* ${fact}`;
             window.open(`https://wa.me/59176395001?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
