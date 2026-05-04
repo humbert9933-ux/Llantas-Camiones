@@ -127,7 +127,7 @@
             <div class="bg-zinc-800 text-white text-xs p-3 rounded-xl rounded-tl-none border border-zinc-700 max-w-[85%]">¡Hola! Soy tu asistente IA experto en neumáticos de alto tonelaje. ¿Qué medida o ruta necesitas hoy?</div>
         </div>
         <div class="bg-zinc-900 p-3 border-t border-white/10 flex gap-2">
-            <input type="text" id="chatInput" placeholder="Pregunta algo..." class="bg-zinc-950 border border-zinc-700 text-white text-xs rounded-xl px-4 py-2 w-full outline-none focus:border-red-600" onkeypress="if(event.key === 'Enter') enviarMensajeIA()">
+            <input type="text" id="chatInput" placeholder="Escribe tu mensaje aquí..." class="bg-zinc-950 border border-zinc-700 text-white text-xs rounded-xl px-4 py-2 w-full outline-none focus:border-red-600" onkeypress="if(event.key === 'Enter') enviarMensajeIA()">
             <button onclick="enviarMensajeIA()" class="bg-red-600 text-white p-2 rounded-xl"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></button>
         </div>
     </div>
@@ -214,7 +214,7 @@
         }
 
         // ==========================================
-        // CONEXIÓN DEFINITIVA AL SERVIDOR REPLIT 
+        // CONEXIÓN DEFINITIVA AL SERVIDOR RENDER
         // ==========================================
         async function enviarMensajeIA() {
             const input = document.getElementById('chatInput'); 
@@ -231,8 +231,8 @@
             chatBox.scrollTop = chatBox.scrollHeight;
 
             try {
-                // TU ENLACE EXACTO AL BACKEND
-                const urlBackend = 'https://node-server--humbert9933.replit.app/api/chat';
+                // TU ENLACE EXACTO Y OFICIAL A RENDER
+                const urlBackend = 'https://global-tyre-api.onrender.com/api/chat';
                 
                 const response = await fetch(urlBackend, {
                     method: 'POST',
@@ -246,7 +246,7 @@
                 const texto = (data.response || data.respuesta || "Lo siento, hubo un error de comunicación.").replace(/\n/g, '<br>');
                 chatBox.innerHTML += `<div class="bg-zinc-800 text-white text-xs p-3 rounded-xl rounded-tl-none border border-zinc-700 max-w-[85%] leading-relaxed">${texto}</div>`;
             } catch (error) {
-                document.getElementById(typingId).innerHTML = "⚠️ Error de conexión con el servidor IA. Verifica que Replit esté corriendo.";
+                document.getElementById(typingId).innerHTML = "⚠️ Error de conexión con el servidor IA. Verifica que Render esté corriendo.";
                 console.error("Fetch error:", error);
             }
             chatBox.scrollTop = chatBox.scrollHeight;
