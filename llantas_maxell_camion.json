@@ -1,0 +1,74 @@
+[
+  {
+    "modelo": "MSR-765",
+    "medida": "295/80 R22.5",
+    "categoria": "DIRECCIÓN",
+    "aplicacion": "LARGA DISTANCIA",
+    "lonas": 18,
+    "precio": 1750,
+    "desc": "Diseño de estrías rectas para máxima estabilidad direccional y excelente ahorro de combustible en asfalto."
+  },
+  {
+    "modelo": "MTR-880",
+    "medida": "295/80 R22.5",
+    "categoria": "TRACCIÓN",
+    "aplicacion": "REGIONAL",
+    "lonas": 18,
+    "precio": 1820,
+    "desc": "Tacos profundos que garantizan un agarre excepcional y alta resistencia al desgaste irregular."
+  },
+  {
+    "modelo": "MSR-900",
+    "medida": "315/80 R22.5",
+    "categoria": "DIRECCIÓN",
+    "aplicacion": "MIXTO",
+    "lonas": 20,
+    "precio": 1950,
+    "desc": "Estructura reforzada ideal para terrenos difíciles y rutas de ripio. Mayor capacidad de carga en el eje delantero."
+  },
+  {
+    "modelo": "MTR-990",
+    "medida": "315/80 R22.5",
+    "categoria": "TRACCIÓN",
+    "aplicacion": "MIXTO",
+    "lonas": 20,
+    "precio": 2050,
+    "desc": "Tracción agresiva para condiciones extremas de lodo y piedra. Alta durabilidad del flanco contra impactos."
+  },
+  {
+    "modelo": "MTR-550",
+    "medida": "12.00 R20",
+    "categoria": "TRACCIÓN",
+    "aplicacion": "MIXTO",
+    "lonas": 20,
+    "precio": 1900,
+    "desc": "Neumático clásico tipo convencional (con cámara). Compuesto especial resistente a cortes, desgarros y altas temperaturas."
+  },
+  {
+    "modelo": "MTR-TRAILER",
+    "medida": "385/65 R22.5",
+    "categoria": "REMOLQUE",
+    "aplicacion": "LARGA DISTANCIA",
+    "lonas": 20,
+    "precio": 2150,
+    "desc": "Neumático súper ancho ('Super Single') para ejes de arrastre. Minimiza la resistencia a la rodadura y soporta cargas pesadas continuas."
+  },
+  {
+    "modelo": "MUR-CITY",
+    "medida": "275/70 R22.5",
+    "categoria": "DIRECCIÓN",
+    "aplicacion": "URBANO",
+    "lonas": 16,
+    "precio": 1600,
+    "desc": "Construida para flotas de transporte público y distribución urbana. Flancos reforzados contra el roce constante de aceras."
+  },
+  {
+    "modelo": "MSR-PRO",
+    "medida": "11 R22.5",
+    "categoria": "DIRECCIÓN",
+    "aplicacion": "REGIONAL",
+    "lonas": 16,
+    "precio": 1550,
+    "desc": "Opción versátil y económica para rutas pavimentadas interdepartamentales. Excelente disipación de calor."
+  }
+]
