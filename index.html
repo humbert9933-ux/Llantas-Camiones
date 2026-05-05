@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Global Tyre | Heavy Duty Division</title>
+    <title>Global Tyre | Heavy Duty App</title>
     
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#dc2626">
     <link rel="apple-touch-icon" href="logo.jpg">
     <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -25,7 +26,7 @@
         .product-card { transition: all 0.4s ease; border-top: 3px solid transparent; }
         .product-card:hover { transform: translateY(-8px); border-top-color: var(--brand-red); box-shadow: 0 15px 30px rgba(220, 38, 38, 0.1); }
         .form-input { background: #18181b; border: 1px solid #27272a; border-radius: 0.75rem; color: white; font-weight: 700; transition: 0.3s; }
-        .form-input:focus { border-color: var(--brand-red); outline: none; box-shadow: 0 0 10px rgba(220, 38, 38, 0.2); }
+        .form-input:focus { border-color: var(--brand-red); outline: none; }
         
         #loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--brand-black); z-index: 99999; display: flex; flex-direction: column; justify-content: center; align-items: center; animation: forceHide 3s forwards; }
         @keyframes forceHide { 0%, 80% { opacity: 1; visibility: visible; } 100% { opacity: 0; visibility: hidden; } }
@@ -46,7 +47,7 @@
             </div>
             <div class="flex items-center gap-2">
                 <button onclick="hideInstallBanner()" class="text-zinc-500 text-[10px] font-bold px-2 uppercase">Luego</button>
-                <button onclick="showInstructions(window.innerWidth < 768 ? 'android' : 'ios')" class="bg-red-600 text-white text-[9px] font-black px-4 py-2 rounded-full uppercase tracking-widest active:scale-95 transition-all">Instalar</button>
+                <button onclick="showInstructions('android')" class="bg-red-600 text-white text-[9px] font-black px-4 py-2 rounded-full uppercase tracking-widest active:scale-95 transition-all">Instalar</button>
             </div>
         </div>
     </div>
@@ -60,225 +61,187 @@
         </div>
     </nav>
 
-    <section class="relative pt-32 pb-16 flex flex-col items-center justify-center hero-bg">
-        <div class="text-center z-10 px-6 max-w-4xl" data-aos="fade-up">
-            <span class="bg-red-600/20 text-red-500 px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest border border-red-600/30 mb-6 inline-block tracking-[0.3em]">Calidad de Exportación</span>
-            <h1 class="text-5xl md:text-8xl font-black uppercase mb-4 leading-none tracking-tight text-white">CATÁLOGO <br><span class="text-red-600 italic">DIGITAL</span></h1>
-            <p class="text-zinc-400 font-bold text-[10px] uppercase tracking-[0.6em]">Innovación en cada kilómetro</p>
+    <section class="relative pt-32 pb-16 flex flex-col items-center justify-center hero-bg text-center">
+        <div class="z-10 px-6 max-w-4xl" data-aos="fade-up">
+            <span class="bg-red-600/20 text-red-500 px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest border border-red-600/30 mb-6 inline-block">App Oficial</span>
+            <h1 class="text-5xl md:text-8xl font-black uppercase mb-4 leading-none text-white tracking-tight">CATÁLOGO <br><span class="text-red-600 italic">2026</span></h1>
         </div>
     </section>
 
     <div class="max-w-5xl mx-auto px-6 relative z-30 -mt-10 mb-20">
         <div class="glass p-6 md:p-8 rounded-[2.5rem] shadow-2xl">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <input type="text" id="filtroMedida" onkeyup="ejecutarFiltros()" placeholder="Buscar Medida o Modelo..." class="form-input p-4 w-full text-xs">
+                <input type="text" id="filtroMedida" onkeyup="ejecutarFiltros()" placeholder="Buscar Medida..." class="form-input p-4 w-full text-xs">
                 <select id="filtroPosicion" onchange="ejecutarFiltros()" class="form-input p-4 w-full text-xs">
                     <option value="TODAS">Eje (Todos)</option>
-                    <option value="DIRECCIÓN">Eje Dirección</option>
-                    <option value="TRACCIÓN">Eje Tracción</option>
+                    <option value="DIRECCIÓN">Dirección</option>
+                    <option value="TRACCIÓN">Tracción</option>
                     <option value="REMOLQUE">Remolque</option>
                 </select>
                 <select id="filtroAplicacion" onchange="ejecutarFiltros()" class="form-input p-4 w-full text-xs">
                     <option value="TODAS">Aplicación (Todas)</option>
                     <option value="REGIONAL">Regional</option>
-                    <option value="MIXTO">Mixto / Off-Road</option>
+                    <option value="MIXTO">Mixto</option>
                 </select>
             </div>
         </div>
     </div>
 
-    <main class="max-w-6xl mx-auto px-6 pb-20">
-        <div id="grid-camion" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
-    </main>
+    <main id="grid-camion" class="max-w-6xl mx-auto px-6 pb-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></main>
 
     <section class="max-w-4xl mx-auto px-6 py-20 text-center border-t border-white/5" data-aos="fade-up">
-        <h2 class="text-2xl font-black uppercase tracking-widest mb-4">Lleva nuestra App en tu bolsillo</h2>
-        <p class="text-zinc-500 text-[10px] uppercase font-bold tracking-widest mb-10">Acceso directo a stock y precios actualizados</p>
-        
+        <h2 class="text-2xl font-black uppercase mb-10 tracking-widest">Descargar Aplicación</h2>
         <div class="flex flex-wrap justify-center gap-6">
-            <button onclick="showInstructions('android')" class="bg-zinc-900 border border-white/10 px-8 py-4 rounded-2xl flex items-center gap-4 hover:border-green-600 transition-all active:scale-95 shadow-2xl">
+            <button onclick="showInstructions('android')" class="bg-zinc-900 border border-white/10 px-8 py-4 rounded-2xl flex items-center gap-4 hover:border-green-600 transition-all">
                 <svg class="w-8 h-8 text-green-500" fill="currentColor" viewBox="0 0 24 24"><path d="M17.523 15.3414C17.0609 15.3414 16.6908 14.9713 16.6908 14.5092C16.6908 14.0471 17.0609 13.677 17.523 13.677C17.9851 13.677 18.3552 14.0471 18.3552 14.5092C18.3552 14.9713 17.9851 15.3414 17.523 15.3414ZM6.47702 15.3414C6.01492 15.3414 5.64478 14.9713 5.64478 14.5092C5.64478 14.0471 6.01492 13.677 6.47702 13.677C6.93911 13.677 7.30925 14.0471 7.30925 14.5092C7.30925 14.9713 6.93911 15.3414 6.47702 15.3414ZM17.8824 10.3957L19.8659 6.96323C19.9882 6.7516 19.9157 6.48037 19.7039 6.35824C19.4922 6.23611 19.2211 6.30843 19.0988 6.52026L17.0911 9.99619C15.6033 9.31495 13.9168 8.93884 12.129 8.93884C10.3412 8.93884 8.65471 9.31495 7.16694 9.99619L5.15918 6.52026C5.03692 6.30843 4.76579 6.23611 4.55403 6.35824C4.34227 6.48037 4.26978 6.7516 4.39211 6.96323L6.37563 10.3957C2.70997 12.3853 0.170668 16.1472 0 20.5485H24.2581C24.0874 16.1472 21.5481 12.3853 17.8824 10.3957Z"/></svg>
-                <div class="text-left"><p class="text-zinc-500 text-[9px] font-bold uppercase">Disponible para</p><p class="text-white font-black text-sm uppercase">Android</p></div>
+                <div class="text-left"><p class="text-zinc-500 text-[9px] font-bold uppercase">Descarga para</p><p class="text-white font-black text-sm uppercase">Android</p></div>
             </button>
-            <button onclick="showInstructions('ios')" class="bg-zinc-900 border border-white/10 px-8 py-4 rounded-2xl flex items-center gap-4 hover:border-white/50 transition-all active:scale-95 shadow-2xl">
+            <button onclick="showInstructions('ios')" class="bg-zinc-900 border border-white/10 px-8 py-4 rounded-2xl flex items-center gap-4 hover:border-white/50 transition-all">
                 <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.1 2.48-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .76-3.27.82-1.31.05-2.31-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91 1.15.05 2.13.44 2.87 1.21-1.56.93-1.28 3.38.36 4.06-1.09 1.67-2.45 3.39-3.44 4.39zM13 3.5c.73-.89 1.22-2.11 1.09-3.33-1.04.04-2.3.69-3.05 1.56-.67.77-1.26 2.03-1.1 3.21 1.16.09 2.33-.55 3.06-1.44z"/></svg>
-                <div class="text-left"><p class="text-zinc-500 text-[9px] font-bold uppercase">Disponible para</p><p class="text-white font-black text-sm uppercase">iPhone / iOS</p></div>
+                <div class="text-left"><p class="text-zinc-500 text-[9px] font-bold uppercase">Descarga para</p><p class="text-white font-black text-sm uppercase">iOS / iPhone</p></div>
             </button>
         </div>
     </section>
 
-    <div id="modal-instrucciones" class="fixed inset-0 z-[110] bg-black/90 backdrop-blur-md hidden flex items-center justify-center p-6">
+    <div id="modal-instrucciones" class="fixed inset-0 z-[110] bg-black/95 hidden flex items-center justify-center p-6 backdrop-blur-md">
         <div class="glass max-w-sm w-full rounded-[2.5rem] p-8 text-center border-white/10 shadow-3xl">
-            <div id="instruccion-icon" class="mb-6 flex justify-center"></div>
             <h3 id="instruccion-titulo" class="text-white font-black uppercase tracking-widest mb-4"></h3>
-            <div id="instruccion-pasos" class="text-zinc-400 text-xs space-y-4 mb-8 text-left bg-zinc-900/50 p-6 rounded-2xl border border-white/5 leading-relaxed"></div>
+            <div id="instruccion-pasos" class="text-zinc-400 text-xs space-y-4 mb-8 text-left bg-zinc-900/50 p-6 rounded-2xl border border-white/5"></div>
             <button onclick="cerrarModal()" class="w-full bg-red-600 text-white py-4 rounded-xl font-black uppercase text-[10px] tracking-widest shadow-xl">Entendido</button>
         </div>
     </div>
 
-    <button onclick="toggleChat()" class="fixed bottom-24 right-6 bg-zinc-900 border border-red-600/50 text-white p-4 rounded-full shadow-2xl z-40 hover:border-red-500 transition-all">
-        <svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
-    </button>
-
-    <button onclick="toggleCart()" class="fixed bottom-6 right-6 bg-red-600 text-white p-4 rounded-full shadow-2xl z-40 hover:bg-red-700 transition-all active:scale-95 flex items-center gap-2">
+    <button onclick="toggleCart()" class="fixed bottom-6 right-6 bg-red-600 text-white p-4 rounded-full shadow-2xl z-40 flex items-center gap-2 active:scale-95 transition-all">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
         <span id="cart-badge" class="bg-white text-red-600 font-black text-xs w-6 h-6 flex items-center justify-center rounded-full">0</span>
     </button>
 
-    <div id="ai-chat-window" class="fixed bottom-40 right-6 w-80 sm:w-96 glass rounded-2xl shadow-2xl z-50 flex flex-col overflow-hidden transition-all duration-300 opacity-0 pointer-events-none translate-y-4">
-        <div class="bg-gradient-to-r from-red-700 to-red-900 p-4 flex justify-between items-center text-white">
-            <h3 class="font-black uppercase text-[10px] tracking-widest">Asesor Global Tyre</h3>
-            <button onclick="toggleChat()"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg></button>
-        </div>
-        <div id="chat-messages" class="h-80 bg-zinc-950/90 p-4 overflow-y-auto flex flex-col gap-3">
-            <div class="bg-zinc-800 text-white text-xs p-3 rounded-xl rounded-tl-none border border-zinc-700 max-w-[85%]">¡Bienvenido! ¿Qué medida o ruta necesitas cotizar hoy?</div>
-        </div>
-        <div class="bg-zinc-900 p-3 border-t border-white/10 flex gap-2">
-            <input type="text" id="chatInput" placeholder="Preguntar algo..." class="bg-zinc-950 border border-zinc-700 text-white text-xs rounded-xl px-4 py-2 w-full outline-none focus:border-red-600">
-            <button onclick="enviarMensajeIA()" class="bg-red-600 text-white p-2 rounded-xl"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></button>
-        </div>
-    </div>
-
-    <div id="cart-overlay" onclick="toggleCart()" class="fixed inset-0 bg-black/80 z-50 opacity-0 pointer-events-none transition-opacity backdrop-blur-sm"></div>
+    <div id="cart-overlay" onclick="toggleCart()" class="fixed inset-0 bg-black/80 z-50 opacity-0 pointer-events-none transition-opacity"></div>
     <div id="cart-modal" class="fixed top-0 right-0 w-full max-w-md h-full glass border-l border-white/10 z-50 transition-transform duration-300 translate-x-full flex flex-col">
-        <div class="flex justify-between items-center p-6 bg-zinc-900/80 border-b border-white/5">
-            <h2 class="text-xl font-black uppercase tracking-widest text-white">Mi Carrito</h2>
+        <div class="flex justify-between items-center p-6 border-b border-white/5">
+            <h2 class="text-xl font-black uppercase text-white">Mi Carrito</h2>
             <button onclick="toggleCart()" class="text-zinc-500"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg></button>
         </div>
         <div id="cart-items" class="flex-1 overflow-y-auto p-6 space-y-4"></div>
         <div class="p-6 bg-zinc-950 border-t border-red-600/20">
-            <input type="text" id="nombreCliente" placeholder="Nombre o Empresa *" class="form-input p-3 w-full text-xs mb-3">
-            <button onclick="enviarPedidoWA()" class="w-full bg-red-600 hover:bg-red-700 py-4 rounded-xl font-black uppercase text-[11px] text-white">Enviar Pedido a WhatsApp</button>
+            <input type="text" id="nombreCliente" placeholder="Nombre o Empresa" class="form-input p-3 w-full text-xs mb-3">
+            <button onclick="enviarPedidoWA()" class="w-full bg-red-600 py-4 rounded-xl font-black uppercase text-[11px] text-white">Enviar pedido por WhatsApp</button>
+        </div>
+    </div>
+
+    <button onclick="toggleChat()" class="fixed bottom-24 right-6 bg-zinc-900 border border-red-600/50 text-white p-4 rounded-full shadow-2xl z-40">
+        <svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+    </button>
+
+    <div id="ai-chat-window" class="fixed bottom-40 right-6 w-80 glass rounded-2xl shadow-2xl z-50 flex flex-col overflow-hidden opacity-0 pointer-events-none transition-all translate-y-4">
+        <div class="bg-red-700 p-4 text-white font-black uppercase text-[10px] tracking-widest flex justify-between items-center">
+            Asesor Virtual
+            <button onclick="toggleChat()">X</button>
+        </div>
+        <div id="chat-messages" class="h-64 bg-zinc-950/90 p-4 overflow-y-auto text-xs space-y-2"></div>
+        <div class="p-3 bg-zinc-900 flex gap-2 border-t border-white/5">
+            <input type="text" id="chatInput" placeholder="Escribe..." class="bg-black border border-zinc-700 text-white text-xs rounded-lg px-3 py-2 w-full">
+            <button onclick="enviarMensajeIA()" class="bg-red-600 text-white p-2 rounded-lg">-></button>
         </div>
     </div>
 
     <script>
         let baseDatos = []; let carrito = [];
-        const banner = document.getElementById('pwa-install-banner');
+
+        // REGISTRO DEL SERVICE WORKER (CLAVE PARA DESCARGAR)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                .then(reg => console.log('SW activo'))
+                .catch(err => console.log('SW fallo', err));
+            });
+        }
 
         async function init() {
             try {
                 const res = await fetch('llantas_maxell_camion.json');
                 baseDatos = await res.json();
                 render(baseDatos);
-                AOS.init({ duration: 800 });
-                if (window.innerWidth < 768) setTimeout(() => banner.classList.remove('-translate-y-full'), 4000);
-            } catch (e) { console.error("Error inicial"); }
-        }
-
-        function toggleCart() {
-            document.getElementById('cart-modal').classList.toggle('translate-x-full');
-            const o = document.getElementById('cart-overlay');
-            o.classList.toggle('opacity-0'); o.classList.toggle('pointer-events-none');
-        }
-
-        function toggleChat() {
-            const c = document.getElementById('ai-chat-window');
-            c.classList.toggle('opacity-0'); c.classList.toggle('pointer-events-none'); c.classList.toggle('translate-y-4');
-        }
-
-        function hideInstallBanner() { banner.classList.add('-translate-y-full'); }
-
-        function showInstructions(so) {
-            const modal = document.getElementById('modal-instrucciones');
-            const titulo = document.getElementById('instruccion-titulo');
-            const pasos = document.getElementById('instruccion-pasos');
-            const icon = document.getElementById('instruccion-icon');
-            modal.classList.remove('hidden');
-            if (so === 'android') {
-                icon.innerHTML = '<div class="p-4 bg-green-500/20 rounded-full text-green-500"><svg class="w-12 h-12" fill="currentColor" viewBox="0 0 24 24"><path d="M17.523 15.3414C17.0609 15.3414 16.6908 14.9713 16.6908 14.5092C16.6908 14.0471 17.0609 13.677 17.523 13.677C17.9851 13.677 18.3552 14.0471 18.3552 14.5092C18.3552 14.9713 17.9851 15.3414 17.523 15.3414ZM6.47702 15.3414C6.01492 15.3414 5.64478 14.9713 5.64478 14.5092C5.64478 14.0471 6.01492 13.677 6.47702 13.677C6.93911 13.677 7.30925 14.0471 7.30925 14.5092C7.30925 14.9713 6.93911 15.3414 6.47702 15.3414ZM17.8824 10.3957L19.8659 6.96323C19.9882 6.7516 19.9157 6.48037 19.7039 6.35824C19.4922 6.23611 19.2211 6.30843 19.0988 6.52026L17.0911 9.99619C15.6033 9.31495 13.9168 8.93884 12.129 8.93884C10.3412 8.93884 8.65471 9.31495 7.16694 9.99619L5.15918 6.52026C5.03692 6.30843 4.76579 6.23611 4.55403 6.35824C4.34227 6.48037 4.26978 6.7516 4.39211 6.96323L6.37563 10.3957C2.70997 12.3853 0.170668 16.1472 0 20.5485H24.2581C24.0874 16.1472 21.5481 12.3853 17.8824 10.3957Z"></path></svg></div>';
-                titulo.innerText = "Instalar en Android";
-                pasos.innerHTML = "<p>1. Toca los <b>3 puntos</b> arriba a la derecha.</p><p>2. Selecciona <b>'Instalar aplicación'</b> o 'Agregar a inicio'.</p><p>3. ¡Listo!</p>";
-            } else {
-                icon.innerHTML = '<div class="p-4 bg-white/10 rounded-full text-white"><svg class="w-12 h-12" fill="currentColor" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.1 2.48-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .76-3.27.82-1.31.05-2.31-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91 1.15.05 2.13.44 2.87 1.21-1.56.93-1.28 3.38.36 4.06-1.09 1.67-2.45 3.39-3.44 4.39zM13 3.5c.73-.89 1.22-2.11 1.09-3.33-1.04.04-2.3.69-3.05 1.56-.67.77-1.26 2.03-1.1 3.21 1.16.09 2.33-.55 3.06-1.44z"></path></svg></div>';
-                titulo.innerText = "Instalar en iPhone";
-                pasos.innerHTML = "<p>1. Abre la web en <b>Safari</b>.</p><p>2. Toca <b>Compartir</b> (cuadrado con flecha).</p><p>3. Selecciona <b>'Agregar al inicio'</b>.</p>";
-            }
-        }
-
-        function cerrarModal() { document.getElementById('modal-instrucciones').classList.add('hidden'); }
-
-        async function enviarMensajeIA() {
-            const input = document.getElementById('chatInput'); const msg = input.value.trim();
-            if(!msg) return;
-            const chatBox = document.getElementById('chat-messages');
-            chatBox.innerHTML += `<div class="bg-red-600 text-white text-xs p-3 rounded-xl self-end max-w-[85%]">${msg}</div>`;
-            input.value = ''; chatBox.scrollTop = chatBox.scrollHeight;
-            try {
-                const response = await fetch('https://global-tyre-api.onrender.com/api/chat', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ message: msg })
-                });
-                const data = await response.json();
-                chatBox.innerHTML += `<div class="bg-zinc-800 text-white text-xs p-3 rounded-xl border border-zinc-700 max-w-[85%]">${data.response}</div>`;
-            } catch (e) {
-                chatBox.innerHTML += `<div class="text-red-500 text-[10px] text-center">⚠️ Error de conexión</div>`;
-            }
-            chatBox.scrollTop = chatBox.scrollHeight;
+                AOS.init();
+                if (window.innerWidth < 768) setTimeout(() => document.getElementById('pwa-install-banner').classList.remove('-translate-y-full'), 4000);
+            } catch (e) { console.log("Error inicial"); }
         }
 
         function render(items) {
             const grid = document.getElementById('grid-camion');
             grid.innerHTML = items.map((l, i) => `
                 <div class="glass p-8 rounded-[2.5rem] product-card flex flex-col h-full border border-white/5 relative" data-aos="fade-up">
-                    <span class="bg-red-600 text-white text-[8px] px-2.5 py-1 rounded-full font-black uppercase tracking-widest absolute top-6 left-6">${l.posicion || 'MULTIEJE'}</span>
                     <p class="text-4xl font-black text-white mt-8 uppercase italic leading-none">${l.medida}</p>
                     <h3 class="text-red-600 text-[10px] font-black uppercase tracking-[0.2em] mb-4">${l.modelo}</h3>
                     <p class="text-zinc-500 text-[10px] mb-6 flex-grow uppercase pt-4 border-t border-white/5 leading-relaxed">${l.desc}</p>
                     <p class="text-2xl font-black text-white mb-4">${l.precio} BS</p>
-                    <div class="flex items-center justify-between bg-zinc-900/50 p-3 rounded-2xl mb-4">
-                        <button onclick="modificarCantidad(${i},-1)" class="w-8 h-8 bg-zinc-800 rounded-lg text-white font-black">-</button>
-                        <span id="qty-val-${i}" class="text-white font-black text-lg">1</span>
-                        <button onclick="modificarCantidad(${i},1)" class="w-8 h-8 bg-zinc-800 rounded-lg text-white font-black">+</button>
-                    </div>
-                    <button onclick="agregarAlCarrito(${i},'${l.medida}','${l.modelo}',${l.precio})" class="w-full bg-red-600 text-white py-4 rounded-xl font-black uppercase text-[10px] hover:bg-red-700 active:scale-95 transition-all">Añadir al Carrito</button>
+                    <button onclick="agregarAlCarrito('${l.medida}','${l.modelo}',${l.precio})" class="w-full bg-red-600 text-white py-4 rounded-xl font-black uppercase text-[10px]">Añadir al Carrito</button>
                 </div>`).join('');
         }
 
-        function modificarCantidad(i, c) {
-            const el = document.getElementById(`qty-val-${i}`);
-            let val = parseInt(el.innerText) + c; if(val < 1) val = 1; el.innerText = val;
-        }
-
-        function agregarAlCarrito(i, med, mod, pre) {
-            const q = parseInt(document.getElementById(`qty-val-${i}`).innerText);
+        function agregarAlCarrito(med, mod, pre) {
             const exist = carrito.find(x => x.modelo === mod);
-            if(exist) exist.cantidad += q; else carrito.push({medida: med, modelo: mod, precio: pre, cantidad: q});
+            if(exist) exist.cantidad++; else carrito.push({medida: med, modelo: mod, precio: pre, cantidad: 1});
             actualizarUI();
-            alert("Añadido al carrito 🛒");
+            alert("Añadido 🛒");
         }
 
         function actualizarUI() {
             document.getElementById('cart-badge').innerText = carrito.reduce((a, b) => a + b.cantidad, 0);
             document.getElementById('cart-items').innerHTML = carrito.map((x, i) => `
-                <div class="bg-zinc-900 border border-white/5 p-4 rounded-xl flex justify-between items-center">
-                    <div>
-                        <p class="text-white font-black text-sm uppercase">${x.medida}</p>
-                        <p class="text-red-600 text-[9px] font-bold">${x.modelo}</p>
-                        <p class="text-zinc-500 text-xs">${x.cantidad} x ${x.precio} BS</p>
-                    </div>
-                    <button onclick="carrito.splice(${i},1);actualizarUI();" class="text-red-500 text-xs font-bold uppercase">X</button>
-                </div>
-            `).join('');
-        }
-
-        function ejecutarFiltros() {
-            const pos = document.getElementById('filtroPosicion').value;
-            const app = document.getElementById('filtroAplicacion').value;
-            const med = document.getElementById('filtroMedida').value.toLowerCase();
-            let res = baseDatos.filter(p => p.medida.toLowerCase().includes(med) || p.modelo.toLowerCase().includes(med));
-            if(pos !== 'TODAS') res = res.filter(p => p.categoria === pos || p.posicion === pos);
-            if(app !== 'TODAS') res = res.filter(p => p.aplicacion.includes(app));
-            render(res);
+                <div class="bg-zinc-900 border border-white/5 p-4 rounded-xl flex justify-between items-center text-xs">
+                    <div><b>${x.modelo}</b><br>${x.cantidad} x ${x.precio} BS</div>
+                    <button onclick="carrito.splice(${i},1);actualizarUI();" class="text-red-500 font-bold">ELIMINAR</button>
+                </div>`).join('');
         }
 
         function enviarPedidoWA() {
             const clie = document.getElementById('nombreCliente').value.trim();
-            if(!clie || carrito.length === 0) return alert("Completa tus datos y añade productos");
-            let det = ""; carrito.forEach(x => det += `• ${x.cantidad}x ${x.modelo} (${x.medida})\n`);
-            const msg = `*COTIZACIÓN GLOBAL TYRE*\n👤 *Cliente:* ${clie}\n\n🛒 *DETALLE:*\n${det}\n💰 *TOTAL:* ${carrito.reduce((a,b)=>a+(b.precio*b.cantidad),0)} BS`;
+            if(!clie || carrito.length === 0) return alert("Completa tus datos");
+            let det = ""; carrito.forEach(x => det += `• ${x.cantidad}x ${x.modelo}\n`);
+            const msg = `*PEDIDO GLOBAL TYRE*\n👤 *Cliente:* ${clie}\n\n🛒 *DETALLE:*\n${det}`;
             window.open(`https://wa.me/59176395001?text=${encodeURIComponent(msg)}`);
+        }
+
+        function toggleCart() { document.getElementById('cart-modal').classList.toggle('translate-x-full'); document.getElementById('cart-overlay').classList.toggle('opacity-0'); document.getElementById('cart-overlay').classList.toggle('pointer-events-none'); }
+        function toggleChat() { const c = document.getElementById('ai-chat-window'); c.classList.toggle('opacity-0'); c.classList.toggle('pointer-events-none'); c.classList.toggle('translate-y-4'); }
+        function hideInstallBanner() { document.getElementById('pwa-install-banner').classList.add('-translate-y-full'); }
+        
+        function showInstructions(so) {
+            const modal = document.getElementById('modal-instrucciones');
+            modal.classList.remove('hidden');
+            if (so === 'android') {
+                document.getElementById('instruccion-titulo').innerText = "Instalar en Android";
+                document.getElementById('instruccion-pasos').innerHTML = "<p>1. Toca los <b>3 puntos</b> arriba a la derecha.</p><p>2. Selecciona <b>'Instalar aplicación'</b> o 'Agregar a inicio'.</p>";
+            } else {
+                document.getElementById('instruccion-titulo').innerText = "Instalar en iPhone";
+                document.getElementById('instruccion-pasos').innerHTML = "<p>1. Usa el navegador <b>Safari</b>.</p><p>2. Toca <b>Compartir</b> (cuadrado con flecha).</p><p>3. Selecciona <b>'Agregar al inicio'</b>.</p>";
+            }
+        }
+        function cerrarModal() { document.getElementById('modal-instrucciones').classList.add('hidden'); }
+
+        async function enviarMensajeIA() {
+            const input = document.getElementById('chatInput');
+            const box = document.getElementById('chat-messages');
+            if(!input.value) return;
+            box.innerHTML += `<div class="text-red-500 font-bold text-right">Tú: ${input.value}</div>`;
+            const userMsg = input.value; input.value = '';
+            try {
+                const res = await fetch('https://global-tyre-api.onrender.com/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message: userMsg }) });
+                const data = await res.json();
+                box.innerHTML += `<div class="text-zinc-300">Bot: ${data.response}</div>`;
+            } catch(e) { box.innerHTML += `<div class="text-red-500">Error</div>`; }
+            box.scrollTop = box.scrollHeight;
+        }
+
+        function ejecutarFiltros() {
+            const med = document.getElementById('filtroMedida').value.toLowerCase();
+            const pos = document.getElementById('filtroPosicion').value;
+            const app = document.getElementById('filtroAplicacion').value;
+            let res = baseDatos.filter(l => l.medida.toLowerCase().includes(med) || l.modelo.toLowerCase().includes(med));
+            if(pos !== 'TODAS') res = res.filter(l => l.posicion === pos || l.categoria === pos);
+            if(app !== 'TODAS') res = res.filter(l => l.aplicacion.includes(app));
+            render(res);
         }
 
         window.onload = init;
