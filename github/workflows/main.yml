@@ -1,0 +1,26 @@
+name: Deploy GlobalTyre
+
+on:
+  push:
+    branches: [ main ]
+
+# ESTA ES LA CLAVE: Aquí agregamos la variable que pide GitHub
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4 # Esta versión ya es compatible con el parche de arriba
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24' # Forzamos el uso de la versión 24 directamente
+
+      - name: Install and Build
+        run: |
+          npm install
+          # Aquí van tus comandos de construcción si los tienes
